@@ -1,5 +1,7 @@
 package com.sort;
 
+import java.util.Arrays;
+
 /**
  * Created by sqy on 2018/5/23.
  */
@@ -7,38 +9,32 @@ public class QuickSort {
 
     public static void main(String[] args){
         int[] input={9,6,8,4,5};
-
-        quicksort(input,input[0],input.length);
-        for(int a :input){
-            System.out.print(a);
-        }
+        System.out.println(Arrays.toString(quicksort(input,0,input.length-1)));
     }
 
-    public static int position(int[] a,int low,int high){
+    public static int position(int[] arr,int low,int high){
 
-        int point = a[low];
-        while (low < high){
-            if(a[high]>=point){
-                --high;
-            }else {
-                a[low] = a[high];
-            }
-            if (a[low]<=point){
-                ++low;
-            }else {
-                a[high] = a[low];
-            }
+        int pivot = arr[low];     //枢轴记录
+        while (low<high){
+            while (low<high && arr[high]>=pivot) --high;
+            arr[low]=arr[high];             //交换比枢轴小的记录到左端
+            while (low<high && arr[low]<=pivot) ++low;
+            arr[high] = arr[low];           //交换比枢轴小的记录到右端
         }
-        a[low] =point;
+        //扫描完成，枢轴到位
+        arr[low] = pivot;
+        //返回的是枢轴的位置
         return low;
+
     }
 
-    public static void quicksort(int[] a,int low,int high){
+    public static int[] quicksort(int[] a,int low,int high){
         if(low<high){
             int point = position(a,low,high);
             quicksort(a,low,point-1);
             quicksort(a,point+1,high);
         }
+        return a;
     }
 
 
