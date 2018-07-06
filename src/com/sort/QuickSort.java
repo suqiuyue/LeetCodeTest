@@ -8,11 +8,11 @@ import java.util.Arrays;
 public class QuickSort {
 
     public static void main(String[] args){
-        int[] input={9,6,8,4,5};
+        int[] input={9,6,2,4,5,8};
         System.out.println(Arrays.toString(quicksort(input,0,input.length-1)));
     }
 
-    public static int position(int[] arr,int low,int high){
+    public static int position(int[] arr,int low,int high) {
 
         int pivot = arr[low];     //枢轴记录
         while (low<high){
@@ -24,6 +24,7 @@ public class QuickSort {
         //扫描完成，枢轴到位
         arr[low] = pivot;
         //返回的是枢轴的位置
+
         return low;
 
     }
@@ -36,6 +37,7 @@ public class QuickSort {
         }
         return a;
     }
+
 
 
 }

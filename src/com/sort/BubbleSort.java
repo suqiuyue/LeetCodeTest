@@ -2,6 +2,7 @@ package com.sort;
 
 import java.util.Arrays;
 
+
 /**
  * Created by sqy on 2018/5/23.
  */
@@ -13,11 +14,13 @@ public class BubbleSort {
        // bubble(input);
        // bubble2(input);
 
-        for(int i=0;i<input.length;i++){
+       /* for(int i=0;i<input.length;i++){
             bubble3(input,i);
         }
 
-        System.out.print(Arrays.toString(input));
+        System.out.print(Arrays.toString(input));*/
+
+      System.out.println(Arrays.toString(quicksort(input,0,input.length-1)));
 
     }
 
@@ -81,6 +84,33 @@ public class BubbleSort {
         }
         return a;
 
+    }
+
+    public static int[] quicksort(int[] src,int low,int high){
+        if (low < high){
+            int point = position(src,low,high);
+            quicksort(src,low,point-1);
+            quicksort(src,point+1,high);
+
+        }
+
+        return src;
+    }
+    public static int position(int[] src,int low,int high){
+        int point = src[low];
+        while (low<high){
+            while (low<high && src[high]>=point){
+                high--;
+            }
+            src[low] = src[high];
+            while (low < high && src[low] <= point){
+                low++;
+            }
+            src[high] = src[low];
+        }
+
+        src[low] = point;
+        return low;
     }
 
 }
