@@ -46,6 +46,45 @@ public class IOTest {
     public static void main(String[] args){
         IOTest test = new IOTest();
         //test.get();
-        test.put();
+        //test.put();
     }
+
+    public  static void method1(String src,String dis) throws IOException{
+        FileInputStream fileInputStream = new FileInputStream(src);
+        FileOutputStream fileOutputStream = new FileOutputStream(dis);
+
+        int a ;
+        while ((a = fileInputStream.read()) != -1){
+            fileOutputStream.write(a);
+
+        }
+
+        fileInputStream.close();
+        fileOutputStream.close();
+    }
+
+    public static void method2(String src,String dis) throws IOException{
+        FileInputStream inputStream = new FileInputStream(src);
+        FileOutputStream outputStream = new FileOutputStream(dis);
+        byte[] b = new byte[1024];
+        int len ;
+        while ((len = inputStream.read())!=-1){
+            outputStream.write(b,0,len);
+        }
+        inputStream.close();
+        outputStream.close();
+    }
+
+    public static void method3(String src,String dis) throws IOException{
+        BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(src));
+        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(dis));
+
+        int a ;
+        while ((a = inputStream.read())!=-1){
+            outputStream.write(a);
+        }
+        inputStream.close();
+        outputStream.close();
+    }
+
 }

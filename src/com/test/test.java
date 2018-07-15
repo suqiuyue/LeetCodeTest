@@ -9,7 +9,7 @@ public class test {
 
     static String src ="";
 
-    public static void main(String[] args){
+    public static void main(StringTest[] args){
 
            /*System.out.println("请输入一个整数：");
            int a = test.getInt();

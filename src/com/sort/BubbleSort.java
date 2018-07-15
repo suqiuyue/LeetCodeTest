@@ -10,6 +10,7 @@ public class BubbleSort {
 
     public static void main(String[] args){
         int[] input={9,6,2,4,5,8};
+        sort(input);
 
        // bubble(input);
        // bubble2(input);
@@ -20,7 +21,6 @@ public class BubbleSort {
 
         System.out.print(Arrays.toString(input));*/
 
-      System.out.println(Arrays.toString(quicksort(input,0,input.length-1)));
 
     }
 
@@ -86,31 +86,18 @@ public class BubbleSort {
 
     }
 
-    public static int[] quicksort(int[] src,int low,int high){
-        if (low < high){
-            int point = position(src,low,high);
-            quicksort(src,low,point-1);
-            quicksort(src,point+1,high);
-
+    public static void sort(int[] a){
+        for (int i = a.length-1; i >0; i--) {
+            for (int j = 0; j < a.length-1; j++) {
+                if(a[j] > a[j+1]){
+                    int temp = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = temp;
+                }
+            }
         }
 
-        return src;
-    }
-    public static int position(int[] src,int low,int high){
-        int point = src[low];
-        while (low<high){
-            while (low<high && src[high]>=point){
-                high--;
-            }
-            src[low] = src[high];
-            while (low < high && src[low] <= point){
-                low++;
-            }
-            src[high] = src[low];
-        }
-
-        src[low] = point;
-        return low;
+        System.out.println(Arrays.toString(a));
     }
 
 }

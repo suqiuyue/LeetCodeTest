@@ -5,23 +5,23 @@ package com.test;
  */
 public class Animal {
 
-    private String fly;
-    private String type;
+    private StringTest fly;
+    private StringTest type;
 
 
-    public String getFly() {
+    public StringTest getFly() {
         return fly;
     }
 
-    public void setFly(String fly) {
+    public void setFly(StringTest fly) {
         this.fly = fly;
     }
 
-    public String getType() {
+    public StringTest getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(StringTest type) {
         this.type = type;
     }
 

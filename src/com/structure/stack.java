@@ -9,9 +9,9 @@ import java.util.Vector;
  */
 public class stack {
     public static void main(String[] args){
-        String src = "hello";
+        /*StringTest src = "hello";
         Stack stack = new Stack();
-        String src1="";
+        StringTest src1="";
         for(int i = 0;i< src.length();i++){
                 char c = src.charAt(i);
                 stack.push(c);
@@ -24,7 +24,8 @@ public class stack {
 
             System.out.println(src1);
 
-            test1();
+            test1();*/
+        System.out.println(Expression());
 
         }
 
@@ -52,6 +53,40 @@ public class stack {
             System.out.println(vector.firstElement());
             vector.removeElement(vector.firstElement());
         }
+
+    }
+
+    public static boolean Expression(){
+        boolean flag = false;
+        String src = "2.3 + 23 / 12 + (3.14159 * 0.24)";
+        Stack stack = new Stack();
+        char ch,chx;
+        for (int i = 0; i < src.length(); i++) {
+            ch = src.charAt(i);
+            switch (ch){
+                case '(':
+                    stack.push(ch);
+                    break;
+                case ')':
+                    if (!stack.isEmpty()){
+                        chx = (char) stack.pop();
+                        if (chx !='('){
+                            return flag;
+                        }
+                    }else {
+                        return flag;
+                    }
+                    default:
+                        break;
+            }
+        }
+        if (!stack.isEmpty()){
+            return flag;
+        }
+
+        flag = true;
+
+        return flag;
 
     }
 }

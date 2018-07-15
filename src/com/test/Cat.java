@@ -5,13 +5,13 @@ package com.test;
  */
 public class Cat extends Animal {
 
-    private String run;
+    private StringTest run;
 
-    public String getRun() {
+    public StringTest getRun() {
         return run;
     }
 
-    public void setRun(String run) {
+    public void setRun(StringTest run) {
         this.run = run;
     }
 

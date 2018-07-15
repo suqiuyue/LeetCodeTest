@@ -12,15 +12,15 @@ public class FindReverse {
     public static void main(String[] args){
 
         /*Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        String[] array = input.split("");
+        StringTest input = sc.nextLine();
+        StringTest[] array = input.split("");
         int[] nums = new int[array.length];
        // int[] nums =new int[]{10,20,30,40,50};
         baoji(5,100,nums);*/
 
         /*Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        String[] array = input.split("-");
+        StringTest input = sc.nextLine();
+        StringTest[] array = input.split("-");
         System.out.println(compare(array.toString()));*/
 
         String date = "2018-04-01";
