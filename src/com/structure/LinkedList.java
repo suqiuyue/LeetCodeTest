@@ -103,7 +103,7 @@ public class LinkedList {
             }
         }
 
-        while (frontNode != null && frontNode.next !=null){
+        while (frontNode != null && frontNode.next != null){
             frontNode = frontNode.next;
             laterNode = laterNode.next;
         }
