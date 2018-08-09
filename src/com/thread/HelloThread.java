@@ -5,35 +5,40 @@ package com.thread;
  */
 public class HelloThread extends Thread{
 
-    private static int counter=0;
-
-    public static void main(String[] args) throws InterruptedException{
-
-        //HelloThread thread = new HelloThread();
-        //thread.start();
-
-        int num =1000;
-        Thread[] threads =new Thread[num];
-        for (int i=0;i<num;i++){
-            threads[i] = new HelloThread();
-            threads[i].start();
+    /*  ThreadLocal保证每个线程中的count是各自独立的，即每个线程中都有一个局部变量count
+        static ThreadLocal<Integer> count = new ThreadLocal<Integer>(){
+        protected Integer initialValue(){
+            return 0;
         }
+    };
 
-        for(int i =0;i<num;i++){
-            threads[i].join(); //主线程结束了，子线程还没结束时，让主线程等待子线程结束后再退出
-        }
+    public static int num(){
+        count.set(count.get()+1);
+        return count.get();
+    }
+    */
 
-        System.out.println(counter);
+
+    static int count = 0;
+    public static int num(){
+        count++;
+        return count;
     }
 
-
     public void run(){
-        //System.out.println("thread name:"+Thread.currentThread().getName());
-        //System.out.print("hello");
-
-        for(int i=0;i<1000;i++){
-            counter++;
+        for (int i = 0; i < 4; i++) {
+            System.out.println(Thread.currentThread().getName()+","+num());
         }
+    }
+    public static void main(String[] args) throws InterruptedException{
+
+        Thread thread1 = new Thread(new HelloThread());
+        Thread thread2 = new Thread(new HelloThread());
+
+        thread1.start();
+        thread2.start();
+        thread1.join();
+        thread2.join();
     }
 
 }
