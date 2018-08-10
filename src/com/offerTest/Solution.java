@@ -53,7 +53,11 @@ public class Solution {
         node1.right = node3;
         node2.left = node4;
         node2.right = node5;
-        solution.FindPath(node1,22);
+       // solution.FindPath(node1,22);
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入字符串：");
+        String str = sc.nextLine();
     }
 
     public static class ListNode {
@@ -730,6 +734,35 @@ public class Solution {
         FindPath(root.right,target);
         path.remove(path.size()-1);
         return lists;
+    }
+
+    /**
+     * 24、输入一个字符串,按字典序打印出该字符串中字符的所有排列。
+     * 例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+     */
+
+    public ArrayList<String> Permutation(String str) {
+
+        ArrayList<String> list = new ArrayList<>();
+
+        if (str == null && str.length() == 0){
+            return list;
+        }
+
+        getList(list,str,0);
+        return list;
+    }
+
+    private void getList(ArrayList<String> list, String str, int start) {
+        if (str == null){
+            return ;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            list.add(String.valueOf(ch));
+            getList(list,str,start+1);
+            list.remove(list.size()-1);
+        }
     }
 
 
