@@ -9,7 +9,7 @@ import java.io.*;
  * Created by sqy on 2018/7/4.
  */
 public class IOTest {
-    String src = "G:\\test.txt";
+    String src = "G:\\IOtest.txt";
 
     public void get(){ //从文件中读出数据
         try {
@@ -45,8 +45,8 @@ public class IOTest {
 
     public static void main(String[] args){
         IOTest test = new IOTest();
-        //test.get();
-        //test.put();
+        //IOtest.get();
+        //IOtest.put();
     }
 
     public  static void method1(String src,String dis) throws IOException{

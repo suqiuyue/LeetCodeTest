@@ -34,16 +34,16 @@ public class Solution {
 
        // solution.printList(solution.Merge1(n1,n2));
 
-       // int[][] test = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+       // int[][] IOtest = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
 
-        /*int[][] test = {{1,2},{3,4}};
-        ArrayList<Integer> list = solution.printMatrix(test);
+        /*int[][] IOtest = {{1,2},{3,4}};
+        ArrayList<Integer> list = solution.printMatrix(IOtest);
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }*/
-       // System.out.println(solution.printMatrix(test));
-        /*int[] test = {2,6,5,8,10,9,7};
-        solution.VerifySquenceOfBST(test);*/
+       // System.out.println(solution.printMatrix(IOtest));
+        /*int[] IOtest = {2,6,5,8,10,9,7};
+        solution.VerifySquenceOfBST(IOtest);*/
         TreeNode node1 = new TreeNode(10);
         TreeNode node2 = new TreeNode(5);
         TreeNode node3 = new TreeNode(12);

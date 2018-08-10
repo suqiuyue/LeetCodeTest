@@ -16,7 +16,7 @@ public class List {
    }
 
    public void change1(String str,char[] ch){
-       str = "test";
+       str = "IOtest";
        ch[0] = 'h';
    }
 

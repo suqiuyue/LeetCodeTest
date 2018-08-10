@@ -5,14 +5,14 @@ import java.io.*;
 /**
  * Created by sqy on 2018/7/3.
  */
-public class test {
+public class IOtest {
 
     static String src ="";
 
     public static void main(StringTest[] args){
 
            /*System.out.println("请输入一个整数：");
-           int a = test.getInt();
+           int a = IOtest.getInt();
            getResult(a);*/
 
           Cat cat =  new Cat();
@@ -21,9 +21,6 @@ public class test {
           animal.getfly();
           /*Animal animal = new Cat();
           animal.getfly();*/
-
-
-
 
     }
 
@@ -72,5 +69,7 @@ public class test {
         input();
         return Integer.parseInt(src);
     }
+
+
 
 }
