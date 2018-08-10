@@ -74,7 +74,15 @@ public class EnterUtil {
     public static void multiline(){
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
+        int[] number = new int[str.length()];
+        while (scanner.hasNext() && str != null && !str.equals("")){
 
+            for (int i = 0; i < str.length() ; i++) {
+                number[i] = Integer.parseInt(str);
+            }
+            str = scanner.nextLine();
+        }
 
+        System.out.println(Arrays.toString(number));
     }
 }
