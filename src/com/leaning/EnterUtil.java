@@ -9,9 +9,9 @@ import java.util.Scanner;
  */
 public class EnterUtil {
     public static void main(String[] args){
-        //singleImport();
-        //lineImport();
-        //lineInt();
+        singleImport();
+        lineImport();
+        lineInt();
         multiline();
 
     }
@@ -54,18 +54,20 @@ public class EnterUtil {
     /**
      * 输入一行数值，用空格隔开，按回车结束输入
      */
-
     public static void lineInt(){
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         String[] numstr = str.split(" ");
-        int[] nums = new int[numstr.length];
+        ArrayList<Integer> list = new ArrayList<>();
+        //int[] nums = new int[numstr.length];
         for (int i = 0; i < numstr.length; i++) {
-            nums[i] = Integer.parseInt(numstr[i]);
+          //  nums[i] = Integer.parseInt(numstr[i]);
+            list.add(Integer.parseInt(numstr[i]));
         }
-        for (int i:nums) {
+        /*for (int i:nums) {
             System.out.println(i);
-        }
+        }*/
+        System.out.println(list);
     }
 
     /**
@@ -73,16 +75,14 @@ public class EnterUtil {
      */
     public static void multiline(){
         Scanner scanner = new Scanner(System.in);
-        String str = scanner.nextLine();
-        int[] number = new int[str.length()];
-        while (scanner.hasNext() && str != null && !str.equals("")){
-
-            for (int i = 0; i < str.length() ; i++) {
-                number[i] = Integer.parseInt(str);
+        ArrayList<Integer> list = new ArrayList<>();
+        while (true){
+            String string = scanner.nextLine();
+            if (string.equals("")) {
+                break;
             }
-            str = scanner.nextLine();
+            list.add(Integer.parseInt(string));
         }
-
-        System.out.println(Arrays.toString(number));
+        System.out.println(list);
     }
 }
