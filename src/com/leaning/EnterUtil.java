@@ -13,7 +13,6 @@ public class EnterUtil {
         lineImport();
         lineInt();
         multiline();
-
     }
 
     /**
