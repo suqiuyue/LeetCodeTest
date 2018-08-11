@@ -2,6 +2,7 @@ package com.offerTest;
 
 
 import com.leaning.TreeNode;
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.sun.org.apache.regexp.internal.RE;
 
@@ -40,9 +41,10 @@ public class BackTrack {
        backTrack.FindPath(node1,14);*/
 
        BackTrack backTrack = new BackTrack();
-       int[] nums = new int[]{1,2,3};
-      // backTrack.subsets(nums);
-        backTrack.permute(nums);
+       int[] nums = new int[]{1,1,2};
+       //backTrack.subsets(nums);
+      // backTrack.permute(nums);
+        backTrack.permuteUnique(nums);
     }
     /**
      * 输入两个整数 n和k，从1到n中选择k个数字的组合。
@@ -153,6 +155,36 @@ public class BackTrack {
                 }
                 list.add(nums[i]);
                 getPermute(nums,list,lists);
+                list.remove(list.size()-1);
+            }
+        }
+    }
+
+    /**
+     * 给定一个数组，包含了重复元素，求不重复的排列组合
+     */
+    public ArrayList<ArrayList<Integer>> permuteUnique(int[] nums) {
+        ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
+        if (nums.length == 0){
+            return lists;
+        }
+        getPermuteUnique(nums,new ArrayList<Integer>(),lists,new boolean[nums.length]);
+        System.out.println(lists);
+        return lists;
+    }
+
+    private void getPermuteUnique(int[] nums, ArrayList<Integer> list, ArrayList<ArrayList<Integer>> lists,boolean[] used) {
+        if (list.size() == nums.length){
+            lists.add(new ArrayList<>(list));
+        }else {
+            for (int i = 0; i < nums.length; i++) {
+                if (used[i] || i > 0 && nums[i] == nums[i-1] && used[i - 1]){
+                    continue;
+                }
+                list.add(nums[i]);
+                used[i] = true;
+                getPermuteUnique(nums,list,lists,used);
+                used[i] =false;
                 list.remove(list.size()-1);
             }
         }
