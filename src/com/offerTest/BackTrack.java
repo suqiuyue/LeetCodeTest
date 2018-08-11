@@ -41,7 +41,7 @@ public class BackTrack {
        backTrack.FindPath(node1,14);*/
 
        BackTrack backTrack = new BackTrack();
-       int[] nums = new int[]{1,1,2};
+       int[] nums = new int[]{1,2,3};
        //backTrack.subsets(nums);
       // backTrack.permute(nums);
         backTrack.permuteUnique(nums);

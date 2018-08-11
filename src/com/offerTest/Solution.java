@@ -2,7 +2,6 @@ package com.offerTest;
 
 
 import com.leaning.TreeNode;
-import com.structure.Tree;
 
 import java.util.*;
 
@@ -742,26 +741,11 @@ public class Solution {
 
     public ArrayList<String> Permutation(String str) {
 
-        ArrayList<String> list = new ArrayList<>();
-
+        ArrayList<String> lists = new ArrayList<>();
         if (str == null && str.length() == 0){
-            return list;
+            return lists;
         }
-
-        getList(list,str,0);
-        return list;
-    }
-
-    private void getList(ArrayList<String> list, String str, int start) {
-        if (str == null){
-            return ;
-        }
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            list.add(String.valueOf(ch));
-            getList(list,str,start+1);
-            list.remove(list.size()-1);
-        }
+        return lists;
     }
 
 
