@@ -23,8 +23,8 @@ public class EnterUtil {
      */
     public static void singleImport(){
         Scanner sc = new Scanner(System.in);
-        //String str = sc.next();
-        int str = Integer.parseInt(sc.next());
+        String str = sc.next();
+        //int str = Integer.parseInt(sc.next());
         System.out.println(str);
     }
 
@@ -51,13 +51,6 @@ public class EnterUtil {
             str = sc.nextLine();
         }
         System.out.println(str);
-    }
-
-    /**
-     * 输入一行数值，用空格隔开，按回车结束输入
-     */
-    public static void lineInt(){
-
     }
 
     /**
@@ -91,6 +84,7 @@ public class EnterUtil {
         }
         return num;
     }
+
     public static ArrayList<Long> single(long... params){
         Scanner sc = new Scanner(System.in);
         boolean isInviod = true;

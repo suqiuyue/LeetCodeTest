@@ -8,8 +8,9 @@ import java.util.Scanner;
  */
 public class InputTest {
     public static void main(String[] args){
-        long duishu =  singleNum(1,Math.pow(10.0,5.0));
-        System.out.println(multiNum(duishu,1,1000));
+        /*long duishu =  singleNum(1,Math.pow(10.0,5.0));
+        System.out.println(multiNum(duishu,1,1000));*/
+        lineStr();
     }
 
     /**
@@ -66,5 +67,19 @@ public class InputTest {
             }
         }
         return listforReturn;
+    }
+
+    /**
+     * 输入一行字符串，按回车结束
+     */
+    public static void lineStr(){
+        Scanner sc = new Scanner(System.in);
+        String string = sc.nextLine();
+        String[] strings = string.split(" ");
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < strings.length; i++) {
+                list.add(strings[i]);
+        }
+        System.out.println(list);
     }
 }
