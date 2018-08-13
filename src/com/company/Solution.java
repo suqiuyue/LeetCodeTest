@@ -19,7 +19,7 @@ public class Solution {
     public static void main(String[] args){
 
         /*ArrayList<Integer> list = new ArrayList<Integer>();
-        Solution so = new Solution();
+        Solution4 so = new Solution4();
         so.push(1);
         so.push(2);
         list.add(so.pop());
