@@ -1,8 +1,6 @@
 package com.huawei0815;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @data 2018/8/15 19:36
@@ -11,17 +9,12 @@ public class Main {
     public static void main(String[] args){
 
         ArrayList<ArrayList<Integer>> lists = single();
-        getGroup(lists);
+       // getGroup(lists);
+        getNum(lists);
     }
     public static ArrayList<ArrayList<Integer>> single(){
         Scanner sc = new Scanner(System.in);
         ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
-        for (int i = 12; i <= 20; i++) {
-            for (int j = 12; j <= 20; j++) {
-                Random rm =new Random();
-
-            }
-        }
         boolean flag = true;
         while (flag) {
             String str = sc.nextLine();
@@ -51,6 +44,7 @@ public class Main {
         return lists;
     }
 
+    //方法1：
     public static void getGroup( ArrayList<ArrayList<Integer>> lists){
 
         ArrayList<ArrayList<Integer>> listEnd = new ArrayList();
@@ -85,6 +79,40 @@ public class Main {
             return 1;
         }
         return 0;
+    }
+
+    //方法2：
+    public static void getNum(ArrayList<ArrayList<Integer>> lists){
+        Map<ArrayList<Integer>,Integer> map = new HashMap<>();
+        for (ArrayList<Integer> list:lists) {
+            int x = list.get(0);
+            int y = list.get(1);
+            for (int i = x; i < y; i++) {
+                int count = 0;
+                count++;
+                int tmp = i + 1;
+                ArrayList<Integer> list1 = new ArrayList<>();
+                list1.add(i);
+                list1.add(tmp);
+                if (map.containsKey(list1)){
+                    int oldvalue = map.get(list1);
+                    map.replace(list1,oldvalue,oldvalue+1);
+                    continue;
+                }
+                map.put(list1,count);
+            }
+        }
+        for (int i = 12 ;i< 20;i++){
+            ArrayList<Integer> list = new ArrayList<>();
+            int tmp =i + 1;
+            list.add(i);
+            list.add(tmp);
+            if (map.containsKey(list)){
+                System.out.println("["+list.get(0)+","+list.get(1)+"):"+map.get(list));
+            }else {
+                System.out.println("["+list.get(0)+","+list.get(1)+"):"+"0");
+            }
+        }
     }
 
 }
