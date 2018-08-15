@@ -3,6 +3,7 @@ package com.offerTest;
 
 import com.leaning.TreeNode;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -54,9 +55,15 @@ public class Solution {
         node2.right = node5;
        // solution.FindPath(node1,22);
 
-        Scanner sc = new Scanner(System.in);
+       /* Scanner sc = new Scanner(System.in);
         System.out.println("请输入字符串：");
         String str = sc.nextLine();
+        System.out.println(solution.Permutation(str));*/
+       char[] ch = new char[]{'a','b','t','g','c','f','c','s','j','d','e','h'};
+       char[] ch1 = new char[]{'b','f','c','e'};
+       hasPath(ch,3,4,ch1);
+
+
     }
 
     public static class ListNode {
@@ -741,11 +748,63 @@ public class Solution {
 
     public ArrayList<String> Permutation(String str) {
 
-        ArrayList<String> lists = new ArrayList<>();
+        ArrayList<ArrayList<Character>> lists = new ArrayList<>();
+        ArrayList<String> list1 = new ArrayList<>();
         if (str == null && str.length() == 0){
-            return lists;
+            return list1;
         }
-        return lists;
+
+        char[] chars = str.toCharArray(); //将字符串转换成char数组
+        getPermutation(chars,new ArrayList<>(),lists);
+
+        char[] ch1 = new char[lists.get(0).size()];
+        for (int i = 0; i < lists.size(); i++) {
+            for (int j = 0; j < ch1.length; j++) {
+                ch1[j] = lists.get(i).get(j);
+            }
+            String string = new String(ch1); //char数组转换成string字符串
+            list1.add(string);
+        }
+        Collections.sort(list1);
+        return list1;
+    }
+
+    private void getPermutation(char[] chars, ArrayList<Character> list, ArrayList<ArrayList<Character>> lists) {
+        if (chars.length == list.size()){
+            lists.add(new ArrayList<>(list));
+        }
+        for (int i = 0; i < chars.length; i++) {
+            if (list.contains(chars[i])){
+                continue;
+            }
+            list.add(chars[i]);
+            getPermutation(chars,list,lists);
+            list.remove(list.size()-1);
+        }
+    }
+
+    /**
+     * 25、请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。
+     * 路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。
+     * 如果一条路径经过了矩阵中的某一个格子，则之后不能再次进入这个格子。
+     * 例如 a b c e s f c s a d e e 这样的3 X 4 矩阵中包含一条字符串"bcced"的路径，
+     * 但是矩阵中不包含"abcb"路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。
+     */
+
+    public static boolean hasPath(char[] matrix, int rows, int cols, char[] str)
+    {
+        if (matrix == null|| matrix.length == 0){
+            return false;
+        }
+        /*char[][] m = new char[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                m[i][j] = matrix[j+i];
+            }
+        }*/
+        boolean path = false;
+
+        return path;
     }
 
 
