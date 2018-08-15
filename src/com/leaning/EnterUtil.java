@@ -9,13 +9,14 @@ import java.util.Scanner;
  */
 public class EnterUtil {
     public static void main(String[] args){
-   /*     singleImport();
         lineImport();
+      /*  singleImport();
+
         lineInt();
         multiline();*/
 //        single(5,13,14);
-        long duishu =  one(1,Math.pow(10.0,5.0));
-        System.out.println(single(duishu,1,1000));
+       /* long duishu =  one(1,Math.pow(10.0,5.0));
+        System.out.println(single(duishu,1,1000));*/
     }
 
     /**
@@ -47,9 +48,6 @@ public class EnterUtil {
         //方法二：
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        while (str != null && !str.equals("")){
-            str = sc.nextLine();
-        }
         System.out.println(str);
     }
 
