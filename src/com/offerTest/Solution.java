@@ -3,6 +3,7 @@ package com.offerTest;
 
 import com.leaning.TreeNode;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -57,6 +58,9 @@ public class Solution {
         Scanner sc = new Scanner(System.in);
         System.out.println("请输入字符串：");
         String str = sc.nextLine();
+        System.out.println(solution.Permutation(str));
+
+
     }
 
     public static class ListNode {
@@ -741,11 +745,39 @@ public class Solution {
 
     public ArrayList<String> Permutation(String str) {
 
-        ArrayList<String> lists = new ArrayList<>();
+        ArrayList<ArrayList<Character>> lists = new ArrayList<>();
+        ArrayList<String> list1 = new ArrayList<>();
         if (str == null && str.length() == 0){
-            return lists;
+            return list1;
         }
-        return lists;
+
+        char[] chars = str.toCharArray(); //将字符串转换成char数组
+        getPermutation(chars,new ArrayList<>(),lists);
+
+        char[] ch1 = new char[lists.get(0).size()];
+        for (int i = 0; i < lists.size(); i++) {
+            for (int j = 0; j < ch1.length; j++) {
+                ch1[j] = lists.get(i).get(j);
+            }
+            String string = new String(ch1); //char数组转换成string字符串
+            list1.add(string);
+        }
+        Collections.sort(list1);
+        return list1;
+    }
+
+    private void getPermutation(char[] chars, ArrayList<Character> list, ArrayList<ArrayList<Character>> lists) {
+        if (chars.length == list.size()){
+            lists.add(new ArrayList<>(list));
+        }
+        for (int i = 0; i < chars.length; i++) {
+            if (list.contains(chars[i])){
+                continue;
+            }
+            list.add(chars[i]);
+            getPermutation(chars,list,lists);
+            list.remove(list.size()-1);
+        }
     }
 
 
