@@ -61,8 +61,10 @@ public class Solution {
         System.out.println(solution.Permutation(str));*/
        char[] ch = new char[]{'a','b','t','g','c','f','c','s','j','d','e','h'};
        char[] ch1 = new char[]{'b','f','c','e'};
-       hasPath(ch,3,4,ch1);
+      // hasPath(ch,3,4,ch1);
 
+        int[] price = {7,5,4,3,2,1};
+        System.out.println( maxProfit(price));
 
     }
 
@@ -805,6 +807,19 @@ public class Solution {
         boolean path = false;
 
         return path;
+    }
+    /**
+     * 26、leetcode 121
+     */
+    public static int maxProfit(int[] prices) {
+        if (prices.length < 1) return 0;
+        int min = prices[0];    //记录最低购买价格
+        int maxPrice = 0;       //记录最高收益
+        for (int i = 1; i < prices.length; i++) {
+            min = Math.min(prices[i],min);
+            maxPrice = Math.max(maxPrice,prices[i]-min);
+        }
+        return maxPrice;
     }
 
 
