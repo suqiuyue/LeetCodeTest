@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * @data 2018/8/15 19:36
  */
-public class Main {
+public class Solution2 {
     public static void main(String[] args){
 
         ArrayList<ArrayList<Integer>> lists = single();
@@ -24,7 +24,6 @@ public class Main {
                 int x = Integer.parseInt(numstr[0]);
                 int y = Integer.parseInt(numstr[1]);
                 if (x == -1 && y == -1){
-                        flag = false;
                         break;
                 }
                 if (x >= 12 && x <= 20 && y >=12 && y <=20 && x < y) {
