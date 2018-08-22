@@ -2,8 +2,6 @@ package com.offerTest;
 
 
 import com.leaning.TreeNode;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -29,9 +27,10 @@ public class Solution {
         n1.next = n3;
         n3.next = n5;
         n2.next = n4;
-        n4.next = n6;
-        n6.next = n1;
+        n4.next = n5;
+        n5.next = n6;
 
+        System.out.println(solution.FindFirstCommonNode(n1,n2));
        // solution.printList(solution.Merge1(n1,n2));
 
        // int[][] IOtest = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
@@ -55,6 +54,7 @@ public class Solution {
         node2.right = node5;
        // solution.FindPath(node1,22);
 
+       // System.out.println(solution.TreeDepth(node1));
        /* Scanner sc = new Scanner(System.in);
         System.out.println("请输入字符串：");
         String str = sc.nextLine();
@@ -64,8 +64,17 @@ public class Solution {
       // hasPath(ch,3,4,ch1);
 
         int[] price = {7,5,4,3,2,1};
-        System.out.println( maxProfit(price));
+       // System.out.println( maxProfit(price));
+        int[] nums = {1,-2,3,10,-4,7,2,-5};
+       /* int num = solution.MoreThanHalfNum_Solution2(nums);
+        System.out.println(num);*/
+      //  solution.GetLeastNumbers_Solution(nums,4);
 
+      //  solution.FindGreatestSumOfSubArray(nums);
+        /*String str = "abca";
+        System.out.println(solution.Permutation(str));*/
+        int[] n = {2,4,3,6,3,2,5,5};
+        solution.FindNumsAppearOnce(n,new int[1],new int[1]);
     }
 
     public static class ListNode {
@@ -749,17 +758,15 @@ public class Solution {
      */
 
     public ArrayList<String> Permutation(String str) {
-
         ArrayList<ArrayList<Character>> lists = new ArrayList<>();
         ArrayList<String> list1 = new ArrayList<>();
         if (str == null && str.length() == 0){
             return list1;
         }
-
         char[] chars = str.toCharArray(); //将字符串转换成char数组
         getPermutation(chars,new ArrayList<>(),lists);
 
-        char[] ch1 = new char[lists.get(0).size()];
+        char[] ch1 = new char[chars.length];
         for (int i = 0; i < lists.size(); i++) {
             for (int j = 0; j < ch1.length; j++) {
                 ch1[j] = lists.get(i).get(j);
@@ -822,5 +829,292 @@ public class Solution {
         return maxPrice;
     }
 
+    /**
+     * 27、数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+     * 例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。
+     * 如果不存在则输出0。
+     */
 
+    public int MoreThanHalfNum_Solution(int [] array) { //原始算法,时间复杂度为O(n2)
+        if (array.length == 0 || array == null){
+            return 0;
+        }else if (array.length == 1){
+            return array[0];
+        }
+        int tmp ;
+        int length = array.length / 2;
+        for (int i = 0; i < array.length; i++) {
+            tmp = array[i];
+            int count = 1;
+            for (int j = i + 1;j < array.length; j++) {
+                if (array[j] == array[i]){
+                    count++;
+                    if (count > length){
+                        return tmp;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    public int MoreThanHalfNum_Solution1(int [] array) { //使用hashmap保存数字和重复的次数
+        if (array.length == 0 || array == null){
+            return 0;
+        }else if (array.length == 1){
+            return array[0];
+        }
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < array.length; i++) {
+            if (!map.containsKey(array[i])){
+                map.put(array[i],1);
+            }else {
+                int count = map.get(array[i]);
+                map.replace(array[i],++count);
+                if (map.get(array[i]) > array.length / 2){
+                    return array[i];
+                }
+            }
+
+        }
+        return 0;
+    }
+
+    public int MoreThanHalfNum_Solution2(int [] array) {
+        if (array.length == 0 || array == null){
+            return 0;
+        }else if (array.length == 1){
+            return array[0];
+        }
+        int count = 1;
+        int tmp = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] == tmp){
+                ++count;
+            }else {
+                --count;
+            }
+            if (count == 0){
+                tmp = array[i];
+                count = 1;
+            }
+        }
+        //验证tmp的值是否满足重复次数大于数组长度的一半
+        count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == tmp) count++;
+        }
+        if (count * 2 > array.length) return tmp;
+        return 0;
+    }
+
+    /**
+     * 28、输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
+     */
+
+    public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if (k <= 0 || input.length <= 0 || k > input.length) return list;
+        quicksort(input,0,input.length-1);
+        for (int i = 0; i < k; i++) {
+            list.add(input[i]);
+        }
+        System.out.println(list);
+        return list;
+        }
+
+    public static int[] quicksort(int[] input,int left,int right) {
+
+        if (left < right){
+            int point = position(input,left,right);
+            quicksort(input,left,point-1);
+            quicksort(input,point+1,right);
+        }
+        return input;
+    }
+
+    private static int position(int[] input, int left, int right) {
+        int pivot = input[left];
+        while (left < right){
+            while (left < right && pivot < input[right]){
+                --right;
+            }
+            input[left] = input[right];
+            while (left < right && pivot > input[left]){
+                ++ left;
+            }
+            input[right] = input[left];
+        }
+        input[left] = pivot;
+        return input[left];
+    }
+
+    /**
+     * 29、给一个数组，返回它的最大连续子序列的和(子向量的长度至少是1)
+     *    例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。
+     * @param array
+     * @return
+     */
+    public int FindGreatestSumOfSubArray(int[] array) {//使用DP求解
+        if (array.length <= 0){
+            return 0;
+        }
+        int tmp = array[0];    //记录子序列的和
+        int maxNum = array[0]; //记录最大值
+        for (int i = 1; i < array.length; i++) { //到第i个值之前，求子序列的最大值
+            tmp = Math.max(tmp+array[i],array[i]);
+            maxNum = Math.max(tmp,maxNum);
+        }
+        return maxNum;
+    }
+
+    /**
+     * 30、输入一棵二叉树，求该树的深度。
+     * 从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。
+     */
+
+    public int TreeDepth(TreeNode root) { //树的深度即为栈的深度
+        if (root == null){
+            return 0;
+        }
+        int left = TreeDepth(root.left);
+        int rigth = TreeDepth(root.right);
+        return Math.max(left,rigth)+1;
+    }
+    /**
+     * 31、在一个字符串(0<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置,
+     * 如果没有则返回 -1（需要区分大小写）.
+     */
+
+    public int FirstNotRepeatingChar(String str) {
+        if (str == null || str.length() <= 0) {
+            return -1;
+        }
+        Map<Character,Integer> map = new HashMap<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            if (map.containsKey(str.charAt(i))) {
+                int count = map.get(str.charAt(i));
+                map.put(str.charAt(i), ++count);
+            }else {
+                map.put(str.charAt(i),1);
+            }
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (map.get(str.charAt(i)) == 1){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 32、求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+     */
+    public int Sum_Solution(int n) {
+         int num = n;
+         boolean flag = (num > 0)&& ((num += Sum_Solution(n-1))>0); //利用递归和短路与
+         return num;
+    }
+    /**
+     * 33、输入两个链表，找出它们的第一个公共结点。
+     */
+
+    public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+        if (pHead1 == null || pHead2 == null){
+            return null;
+        }
+        if (pHead1 == null){
+            return pHead2;
+        }
+        if (pHead2 == null){
+            return pHead1;
+        }
+        Map<ListNode,Integer> map = new HashMap<>();
+        int index = 0;
+        while (pHead1 != null){
+            index ++;
+            map.put(pHead1,index);
+            pHead1 = pHead1.next;
+        }
+        while (pHead2 != null){
+            if (map.containsKey(pHead2)){
+                return pHead2;
+            }
+            pHead2 = pHead2.next;
+        }
+        return null;
+    }
+
+    /**
+     * 34、输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。
+     * （注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）
+     */
+
+    public class RandomListNode {
+        int label;
+        RandomListNode next = null;
+        RandomListNode random = null;
+
+        RandomListNode(int label) {
+            this.label = label;
+        }
+    }
+
+    /**
+     * 35 、统计一个数字在排序数组中出现的次数。
+     */
+    public int GetNumberOfK(int[] array , int k) {
+        if (array == null || array.length <= 0){
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == k){
+                count++;
+            }
+            if (i > k){
+                break;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 36、一个整型数组里除了两个数字之外，其他的数字都出现了偶数次。请写程序找出这两个只出现一次的数字。
+     */
+
+    public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+        if (array.length <= 0 || array == null){
+            return;
+        }
+        int count = 0;
+        Map<Integer,Integer> map =new HashMap<>();
+        for (int i = 0; i < array.length; i++) {
+           if (!map.containsKey(array[i])){
+               map.put(array[i],1);
+           }else {
+               count = map.get(array[i]);
+               map.replace(array[i],count,count+1);
+           }
+        }
+        for (int i = 0; i < array.length ; i++) {
+            if (map.get(array[i]) == 1){
+                if (num1[0] == 0){
+                    num1[0] = array[i];
+                }else {
+                    num2[0] = array[i];
+                }
+            }
+        }
+        System.out.println("num1[0]="+num1[0]+",num2[0]="+num2[0]);
+    }
+    /**
+     * 37、把只包含质因子2、3和5的数称作丑数（Ugly Number）。
+     * 例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。
+     */
+    public int GetUglyNumber_Solution(int index) {
+
+        return 0;
+    }
 }

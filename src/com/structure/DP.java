@@ -239,7 +239,6 @@ public class DP {
             return 0;
         }
         int[] tmp = new int[nums.length];
-
         for (int i = 0; i < nums.length; i++) { //每次求以i为终点的最长子序列的长度
             tmp[i] =1;
             for (int j = 0; j < i; j++) {//求以j为终点的最长子序列的长度
