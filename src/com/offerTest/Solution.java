@@ -30,7 +30,7 @@ public class Solution {
         n4.next = n5;
         n5.next = n6;
 
-        System.out.println(solution.FindFirstCommonNode(n1,n2));
+       // System.out.println(solution.FindFirstCommonNode(n1,n2));
        // solution.printList(solution.Merge1(n1,n2));
 
        // int[][] IOtest = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
@@ -73,8 +73,10 @@ public class Solution {
       //  solution.FindGreatestSumOfSubArray(nums);
         /*String str = "abca";
         System.out.println(solution.Permutation(str));*/
-        int[] n = {2,4,3,6,3,2,5,5};
-        solution.FindNumsAppearOnce(n,new int[1],new int[1]);
+        int[] n = {3334,3,3333332};
+       // System.out.println(solution.FindNumbersWithSum(n,10));
+      //  solution.FindNumsAppearOnce1(n,new int[n.length],new int[n.length]);
+        solution.PrintMinNumber(n);
     }
 
     public static class ListNode {
@@ -1082,7 +1084,41 @@ public class Solution {
 
     /**
      * 36、一个整型数组里除了两个数字之外，其他的数字都出现了偶数次。请写程序找出这两个只出现一次的数字。
+     * 思路：（1）使用异或运算（相同的两个数异或结果为0）（2）用hashmap
      */
+
+    public void FindNumsAppearOnce1(int [] array,int num1[] , int num2[]) {
+        if(array.length <= 0){
+            return;
+        }
+
+        int result = array[0];
+        for (int i = 1; i < array.length; i++) { //计算整个数组异或的结果
+            result = result ^ array[i];
+        }
+
+        for (int i = 0; i < array.length; i++) {//根据异或结果（二进制数中某一位为1还是0）将数组分为两个子数组，各包含一个单独的数
+            int tmp = array[i] >> 1;
+            if ((tmp & 1) == 0){
+                num1[i] = array[i];
+            }else {
+                num2[i] = array[i];
+            }
+        }
+
+        //再次对子数组异或，得到最终的结果即为单独的数
+        int result1 = num1[0];
+        for (int i = 1; i < num1.length; i++) {
+            result1 = result1 ^ num1[i];
+        }
+
+        int result2 = num2[0];
+        for (int i = 1; i < num2.length; i++) {
+            result2 = result2 ^ num2[i];
+        }
+
+        System.out.println(result1+","+result2);
+    }
 
     public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
         if (array.length <= 0 || array == null){
@@ -1109,12 +1145,132 @@ public class Solution {
         }
         System.out.println("num1[0]="+num1[0]+",num2[0]="+num2[0]);
     }
+
+
     /**
-     * 37、把只包含质因子2、3和5的数称作丑数（Ugly Number）。
+     * 37、输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，
+     * 如果有多对数字的和等于S，输出两个数的乘积最小的。
+     * 思路：用两个指针，分别指向数组的首尾，两个数据乘积与sum比较
+     */
+
+    public ArrayList<Integer> FindNumbersWithSum(int [] array,int sum) {
+        ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
+        if (array == null || array.length <= 0){
+            return new ArrayList<>();
+        }
+
+        int low = 0;
+        int high = array.length-1;
+
+        while (low < high) {
+            if (sum == (array[low] + array[high])){
+                ArrayList list1 = new ArrayList<>();
+                list1.add(array[low]);
+                list1.add(array[high]);
+
+                lists.add(new ArrayList<>(list1));
+                ++low;
+            }else if (sum > (array[low] + array[high])){
+                ++low;
+            }else if (sum < (array[low] + array[high])){
+                --high;
+            }
+        }
+
+        ArrayList<Integer> list1 = new ArrayList<>();
+
+        if (lists == null || lists.size() <= 0){
+           return new ArrayList<>();
+        }
+        int min = lists.get(0).get(0);
+        int max = lists.get(0).get(1);
+        int result = min * max;
+        for (int i = 1; i < lists.size(); i++) {
+            ArrayList<Integer> list2;
+            list2 = lists.get(i);
+            if (result > list2.get(0)* list2.get(1)){
+                    min = list2.get(0);
+                    max = list2.get(1);
+                    result = min * max;
+            }
+        }
+
+        list1.add(min);
+        list1.add(max);
+
+        return  list1;
+    }
+
+
+    /**
+     * 38、把只包含质因子2、3和5的数称作丑数（Ugly Number）。
      * 例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。
+     * 思路：用数组保存已经找到的丑数。
      */
     public int GetUglyNumber_Solution(int index) {
 
+
+
+
         return 0;
     }
+
+    public boolean isUgly(int num){
+        while (num % 2 == 0){
+            num /= 2;
+        }
+        while (num % 3 == 0){
+            num /= 3;
+        }
+        while (num % 5 == 0){
+            num /= 5;
+        }
+
+        return num == 1 ? true:false;
+    }
+
+    /**
+     * 39、输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+     * 例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+     * 思路：(1)把数组全排列，计算出最小的数；（2）
+     */
+
+    public String PrintMinNumber(int [] numbers) {
+        if (numbers == null || numbers.length <= 0){
+            return null;
+        }
+
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < numbers.length; i++) {
+            list.add(String.valueOf(numbers[i]));
+        }
+
+        Collections.sort(list); //这里排序不对
+        String result = "";
+        String string= list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            if(compare(string,list.get(i))){
+                result = string + list.get(i);
+            }else {
+                result = list.get(i) + string;
+            }
+
+            string = result;
+        }
+
+        return result;
+    }
+
+    public static boolean compare(String str1,String str2){
+        boolean min = false;
+        String string1 = str1 + str2;
+        String string2 = str2 + str1;
+
+        if (Integer.valueOf(string1) < Integer.valueOf(string2)){
+            min =true;
+        }
+        return min;
+    }
+
+
 }

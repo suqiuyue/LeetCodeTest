@@ -48,7 +48,7 @@ public class BubbleSort {
 
     public static void bubble2(int[] a){ //优化冒泡算法，不再遍历之前已经排好序的数
         int num = a.length;
-        for(int i=0;i<a.length;){
+        for(int i=0;i<num;){
             for (int j=1;j<num;j++){
                 if(a[j-1] > a[j]){
                     int tmp = a[j-1];
