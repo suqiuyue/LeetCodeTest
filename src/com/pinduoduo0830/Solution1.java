@@ -41,8 +41,6 @@ public class Solution1 {
              String str1 = sc.nextLine();
              list.add(str1);
          }
-
-
-
+         return str;
      }
 }
