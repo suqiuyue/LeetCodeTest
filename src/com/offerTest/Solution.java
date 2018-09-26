@@ -15,12 +15,12 @@ public class Solution {
         Solution solution = new Solution();
        // solution.reOrderArray(new int[]{1,2,3,4,5,6,7});
 
-        ListNode n1 = new ListNode(1);
-        ListNode n2 = new ListNode(2);
-        ListNode n3 = new ListNode(3);
-        ListNode n4 = new ListNode(4);
-        ListNode n5 = new ListNode(5);
-        ListNode n6 = new ListNode(6);
+        RandomListNode n1 = new RandomListNode(1);
+        RandomListNode n2 = new RandomListNode(2);
+        RandomListNode n3 = new RandomListNode(3);
+        RandomListNode n4 = new RandomListNode(4);
+        RandomListNode n5 = new RandomListNode(5);
+        RandomListNode n6 = new RandomListNode(6);
 
        /* solution.printList(solution.Merge1(null, n2));//2
         solution.printList(solution.Merge1(n1, null));//1*/
@@ -30,6 +30,8 @@ public class Solution {
         n4.next = n5;
         n5.next = n6;
 
+        Solution solution1 = new Solution();
+        System.out.println(solution1.Clone(n1));
        // System.out.println(solution.FindFirstCommonNode(n1,n2));
        // solution.printList(solution.Merge1(n1,n2));
 
@@ -76,7 +78,7 @@ public class Solution {
         int[] n = {3334,3,3333332};
        // System.out.println(solution.FindNumbersWithSum(n,10));
       //  solution.FindNumsAppearOnce1(n,new int[n.length],new int[n.length]);
-        solution.PrintMinNumber(n);
+       // solution.PrintMinNumber(n);
     }
 
     public static class ListNode {
@@ -1053,7 +1055,7 @@ public class Solution {
      * （注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）
      */
 
-    public class RandomListNode {
+    public static class RandomListNode {
         int label;
         RandomListNode next = null;
         RandomListNode random = null;
@@ -1062,6 +1064,82 @@ public class Solution {
             this.label = label;
         }
     }
+
+
+    public RandomListNode Clone(RandomListNode pHead) {
+        if (pHead == null){
+            return null;
+        }
+
+        RandomListNode currentNode = pHead;
+
+        while (currentNode != null){ //第一次遍历，复制next结点
+            RandomListNode newhead = null;
+            newhead.label = currentNode.label;
+            newhead.next = currentNode.next;
+            currentNode.next = newhead;
+            currentNode = currentNode.next;
+        }
+
+
+        RandomListNode node = pHead;
+        while (node != null){ //第二次遍历，复制sbiling结点
+            if (node.random != null){
+                node.next.random = node.random.next;
+            }
+            node = node.next;
+        }
+
+        RandomListNode Node = pHead;
+        RandomListNode copyNode = null;
+        while (Node != null){
+            copyNode = Node.next;
+            if (Node.random != null){
+                copyNode.random = Node.random.next;
+            }
+            Node = copyNode.next;
+        }
+
+        System.out.println(copyNode);
+        return copyNode;
+    }
+
+
+    public RandomListNode Clone1(RandomListNode pHead) {
+        if(pHead == null) {
+            return null;
+        }
+
+        RandomListNode currentNode = pHead;
+        //1、复制每个结点，如复制结点A得到A1，将结点A1插到结点A后面；
+        while(currentNode != null){
+            RandomListNode cloneNode = new RandomListNode(currentNode.label);
+            RandomListNode nextNode = currentNode.next;
+            currentNode.next = cloneNode;
+            cloneNode.next = nextNode;
+            currentNode = nextNode;
+        }
+
+        currentNode = pHead;
+        //2、重新遍历链表，复制老结点的随机指针给新结点，如A1.random = A.random.next;
+        while(currentNode != null) {
+            currentNode.next.random = currentNode.random==null?null:currentNode.random.next;
+            currentNode = currentNode.next.next;
+        }
+
+        //3、拆分链表，将链表拆分为原链表和复制后的链表
+        currentNode = pHead;
+        RandomListNode pCloneHead = pHead.next;
+        while(currentNode != null) {
+            RandomListNode cloneNode = currentNode.next;
+            currentNode.next = cloneNode.next;
+            cloneNode.next = cloneNode.next==null?null:cloneNode.next.next;
+            currentNode = currentNode.next;
+        }
+
+        return pCloneHead;
+    }
+
 
     /**
      * 35 、统计一个数字在排序数组中出现的次数。
@@ -1208,9 +1286,6 @@ public class Solution {
      * 思路：用数组保存已经找到的丑数。
      */
     public int GetUglyNumber_Solution(int index) {
-
-
-
 
         return 0;
     }

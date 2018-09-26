@@ -1,5 +1,8 @@
 package com.structure;
 
+import com.company.List;
+import com.offerTest.Solution;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -33,7 +36,7 @@ public class LinkedList {
         }
 
     }
-    class ListNode{
+    static class ListNode{
         ListNode next; //指针域，指向的下一个元素
         int val; // 数据域
 
@@ -158,7 +161,7 @@ public class LinkedList {
 
     }
 
-    public static boolean ringmethod2(ListNode node){
+    public static ListNode ringmethod2(ListNode node){
         ListNode frontNode = node;
         ListNode laterNode = node;
         while (laterNode.next !=null && frontNode.next !=null && frontNode.next.next !=null){
@@ -167,10 +170,10 @@ public class LinkedList {
         }
 
         if (frontNode == laterNode){
-            return true;
+            return laterNode;
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -179,6 +182,18 @@ public class LinkedList {
      */
 
 
+    public static void main(String[] args) {
+        ListNode n1 = new ListNode(1);
+        ListNode n2 = new ListNode(2);
+        ListNode n3 = new ListNode(3);
+        ListNode n4 = new ListNode(4);
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+        n4.next = n1;
+        deleteNode2(n1);
+        //System.out.println(getNode(n1));
+    }
     public static int getLen(ListNode node){
         if (node ==null){
             return 0;
@@ -207,6 +222,7 @@ public class LinkedList {
             }
 
         }
+      //  System.out.println(len);
         return len;
     }
 
@@ -217,31 +233,28 @@ public class LinkedList {
      * 然后让快、慢两个指针同时移动，当两个指针第一次相遇时，这个点就是环的起始点
      */
 
-    public static ListNode getNode(ListNode node){
-        if (node ==null){
+    public static ListNode getNode(ListNode pHead){
+        if (pHead ==null){
          return null;
         }
 
-        int len = getLen(node);
-        if (len == 0){
+        int len = getLen(pHead);
+        if (len <= 0){
             return null;
         }
 
-        ListNode fristNode = node;
-        ListNode laterNode = node;
+        ListNode fristNode = pHead;
+        ListNode laterNode = pHead;
         for (int i = 0; i < len; i++) {
             fristNode = fristNode.next;
         }
 
-        while (fristNode != null &&laterNode != null){
+        while (fristNode != laterNode){
             fristNode = fristNode.next;
             laterNode = laterNode.next;
-            if (laterNode == fristNode){
-                return laterNode;
-            }
         }
 
-        return null;
+        return fristNode;
     }
 
     /**
@@ -265,6 +278,24 @@ public class LinkedList {
             tmpNode = currentNode;
         }
         return tmpNode;
+    }
+
+    public static ListNode ReverseList(ListNode head){
+        if (head == null || head.next == null){
+            return  null;
+        }
+
+        ListNode pre = null;
+        ListNode next = null;
+        ListNode node = head;
+
+        while (node != null){
+            next = node.next;
+            node.next = pre;
+            pre = node;
+            node = next;
+        }
+        return pre;
     }
 
     /**
@@ -460,12 +491,12 @@ public class LinkedList {
      * 思路：（1）在原链表的每一个结点的下一个结点复制结点（2）将原链表与复制链表分离
      */
 
-    public static ListNode deleteNode2(ListNode head){
-        if (head == null){
+    public static ListNode deleteNode2(ListNode pHead){
+        if (pHead == null){
             return null;
         }
 
-        ListNode currentNode = head;
+        ListNode currentNode = pHead;
 
         while (currentNode != null){ //第一次遍历，复制next结点
             ListNode newhead = null;
@@ -476,7 +507,7 @@ public class LinkedList {
         }
 
 
-        ListNode node = head;
+        ListNode node = pHead;
         while (node != null){ //第二次遍历，复制sbiling结点
             if (node.sbiling != null){
                 node.next.sbiling = node.sbiling.next;
@@ -484,7 +515,7 @@ public class LinkedList {
             node = node.next;
         }
 
-        ListNode Node = head;
+        ListNode Node = pHead;
         ListNode copyNode = null;
         while (Node != null){
             copyNode = Node.next;
@@ -494,7 +525,40 @@ public class LinkedList {
             Node = copyNode.next;
         }
 
+        System.out.println(copyNode);
         return copyNode;
 
     }
+
+    /**
+     * 算法12、删除链表中的重复结点
+     */
+
+    public ListNode deleteDuplication(ListNode pHead){
+        if (pHead == null){
+            return  null;
+        }
+
+        ListNode currrentNode = pHead;
+        ListNode head = null;
+        head.next = pHead;
+        ListNode pre = head;
+
+        while (currrentNode != null){
+            if (currrentNode.val == currrentNode.next.val){
+                while (currrentNode.next != null && currrentNode.val == currrentNode.next.val){
+                    currrentNode = currrentNode.next;
+                }
+                pre.next = currrentNode.next;
+            }else {
+                pre = currrentNode;
+            }
+
+            currrentNode = currrentNode.next;
+        }
+
+        return head.next;
+
+    }
+
 }

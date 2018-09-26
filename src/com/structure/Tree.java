@@ -390,7 +390,6 @@ public class Tree {
     public void find(ArrayList<ArrayList<Integer>> lists,ArrayList<Integer> list,TreeNode node,int num,int target){
 
         Queue<TreeNode> queue = new ArrayDeque<>();
-        Stack<TreeNode> stack1 = new Stack<>();
         queue.offer(node);
 
         while (!queue.isEmpty()){
@@ -399,7 +398,7 @@ public class Tree {
             if (!list.isEmpty()){
                 lists.add(list);
             }
-            num  = num + currentNode.val;
+            num  += currentNode.val;
             if (num != target){
                 if (currentNode.left != null){
                     find(lists,list,currentNode.left,num,target);
